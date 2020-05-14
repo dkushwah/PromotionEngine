@@ -1,35 +1,27 @@
+using GCart.PromotionEngine.Service.CustomException;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace GCart.PrmotionEngine.Service.Tests
 {
     [TestClass]
     public class PromotionEngineTest
     {
-        public PromotionEngineTest()
-        {
 
-        }
-        
         [TestMethod]
-        public void PromotionEngine_Cannot_ApplyPromotion_whenCart_Null()
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void PromotionEngine_ShouldThrowException_When_RuleIsNull()
         {
-            //PromotionEngine promotionEngine = new PromotionEngine();
-            //var t = promotionEngine.FindActivePromotions();
-            //Assert.IsTrue(t.Count > 1);
+            PromotionEngine.Service.PromotionEngine promotionEngine = new PromotionEngine.Service.PromotionEngine();
+            promotionEngine.AddPromotionRule(null);
         }
+
         [TestMethod]
-        public void PromotionEngine_Cannot_ApplyPromotion_whenCart_Empty()
+        [ExpectedException(typeof(PromotionRulesNotFound))]
+        public void PromotionEngine_ShouldThrowException_When_NoRulesToApply()
         {
-            //PromotionEngine promotionEngine = new PromotionEngine();
-            //var t = promotionEngine.FindActivePromotions();
-            //Assert.IsTrue(t.Count > 1);
-        }
-        [TestMethod]
-        public void PromotionEngine_ApplyPromotion_when_AtLeastOne_Active()
-        {
-            //PromotionEngine promotionEngine = new PromotionEngine();
-            //var t = promotionEngine.FindActivePromotions();
-            //Assert.IsTrue(t.Count > 1);
+            PromotionEngine.Service.PromotionEngine promotionEngine = new PromotionEngine.Service.PromotionEngine();
+            promotionEngine.ApplyPromotion(new[] { 'A' });
         }
     }
 }

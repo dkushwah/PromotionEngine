@@ -1,4 +1,5 @@
 ﻿using GCart.PromotionEngine.Service.Contracts;
+using GCart.PromotionEngine.Service.CustomException;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,16 +7,6 @@ using System.Text;
 
 namespace GCart.PromotionEngine.Service
 {
-
-    public class PromotedProducts
-    {
-        public PromotedProducts()
-        {
-            Products = new List<char>();
-        }
-        public IList<char> Products { get; set; }
-        public int Price { get; set; }
-    }
 
     public class AfterPromotionResult
     {
@@ -34,6 +25,10 @@ namespace GCart.PromotionEngine.Service
         
         public void AddPromotionRule(Func<char[], AfterPromotionResult> action)
         {
+            if (action == null)
+            {
+                throw new ArgumentNullException();
+            }
             _rules.Add(action);
         }
         /// <summary>
@@ -45,6 +40,10 @@ namespace GCart.PromotionEngine.Service
         {
             var response = new AfterPromotionResult();
             double price = 0.0;
+            if (!_rules.Any())
+            {
+                throw new PromotionRulesNotFound();
+            }
             foreach (var rule in _rules)
             {
                 response = rule.Invoke(products);
