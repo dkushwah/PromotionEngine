@@ -14,9 +14,9 @@ namespace GCart.PrmotionEngine.Service.Tests
         [ExpectedException(typeof(DuplicateProductException))]
         public void ProductCatalog_ShouldThrow_DuplicateProductException_WhenAdding_DuplicateProduct()
         {
-            IProductCatalog productCatalog = new ProductCatalogService();
-            productCatalog.AddProduct('A', 30);
-            productCatalog.AddProduct('A', 30);
+            //IProductCatalog productCatalog = new ProductCatalogService();
+            //productCatalog.AddProduct('A', 30);
+            //productCatalog.AddProduct('A', 30);
         }
     }
 }
