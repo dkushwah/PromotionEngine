@@ -14,6 +14,10 @@ namespace GCart.PromotionEngine.Service.Impl
         }
         public void AddProduct(char product, double price)
         {
+            if (_productPriceMap.ContainsKey(product))
+            {
+                throw new DuplicateProductException();
+            }
             _productPriceMap.Add(product, price);
         }
 
